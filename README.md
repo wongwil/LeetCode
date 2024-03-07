@@ -29,3 +29,5 @@ The problems are split into the following topics:
 | Math                        |        |
 | 1D DP                       |        |
 | Multidim. DP               |        |
+
+I include a summary of the thought process and code (usually in Java, Python or C++).
