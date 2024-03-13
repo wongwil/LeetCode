@@ -6,7 +6,7 @@ The problems are split into the following topics:
 
 | Topic                      | Done   |
 |-----------------------------|--------|
-| Array / Strings             |   4/24     |
+| Array / Strings             |   5/24     |
 | Two Pointers               |        |
 | Sliding Window             |        |
 | Matrix                     |        |
