@@ -165,7 +165,7 @@ Output: 5, nums = [1,1,2,2,3,_]
 Explanation: Your function should return k = 5, with the first five elements of nums being 1, 1, 2, 2 and 3 respectively.
 It does not matter what you leave beyond the returned k (hence they are underscores).
 
-### Solution
+### Solution (C++)
 The idea is similar to before. We go through each element, and decide if we want to insert it. If it's the first two elements, they can be inserted anyways or if the second last unique element is not equals.
 
 ```
@@ -183,6 +183,42 @@ public:
 
         return b;
 
+    }
+};
+```
+
+## Majority Element
+Given an array nums of size n, return the majority element.
+The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+
+Could you solve the problem in linear time and in O(1) space?
+
+### Example
+Input: nums = [3,2,3]
+Output: 3
+
+### Solution (C++)
+Go through array, increment majority element, decrement if it's different. Set new majority, if count is 0.
+
+```
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int maj = -1;
+        int ctr = 0;
+
+        for(auto ele : nums){
+            if (ctr == 0){
+                maj = ele;
+                ctr = 1;
+            }else if (maj != ele){
+                ctr--;
+            }else if (maj == ele){
+                ctr++;
+            }
+        }
+
+        return maj;
     }
 };
 ```
