@@ -129,6 +129,8 @@ public:
 ```
 
 or 
+
+Simplified code, where we loop through each element, and only increment b, if we found a new unique element.
 ```
 class Solution {
 public:
