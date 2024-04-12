@@ -481,3 +481,44 @@ class Solution {
     }
 }
 ```
+
+## H-index
+Given an array of integers citations where citations[i] is the number of citations a researcher received for their ith paper, return the researcher's h-index.
+
+According to the definition of h-index on Wikipedia: The h-index is defined as the maximum value of h such that the given researcher has published at least h papers that have each been cited at least h times.
+
+### Example
+Input: citations = [3,0,6,1,5]
+Output: 3
+Explanation: [3,0,6,1,5] means the researcher has 5 papers in total and each of them had received 3, 0, 6, 1, 5 citations respectively.
+Since the researcher has 3 papers with at least 3 citations each and the remaining two with no more than 3 citations each, their h-index is 3.
+
+### Solution 
+Think of this problem like using a frequency diagram. For each possible h-value (0 - n), we keep track of papers that have exact h-citations which is in O(n).
+We iterate the frequency array from right to left, while cumulating the frequencies and break if cumulative >= i, trivially return i.
+```
+class Solution {
+    public int hIndex(int[] citations) {
+        int n = citations.length;
+        int freq[] = new int[n+1]; // frequency for each possible h_value
+
+        for(int citation : citations){
+            if (citation >= n){
+                freq[n]++; // if it has more than n citations, it goes to h=n.
+            }else{
+                freq[citation]++;
+            }
+        }
+
+        int cumulative = 0;
+        for(int i=n; i>= 0; --i){
+            cumulative += freq[i];
+
+            if(cumulative >= i){
+                return i;
+            }
+        }
+        return 0;
+    }
+}
+```
