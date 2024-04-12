@@ -349,3 +349,75 @@ public:
     }
 };
 ```
+
+## Jump Game
+You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.
+
+Return true if you can reach the last index, or false otherwise.
+
+### Example
+Ex. 1:
+Input: nums = [2,3,1,1,4]
+Output: true
+Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
+
+Ex.2:
+Input: nums = [3,2,1,0,4]
+Output: false
+Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index.
+
+### Solution (C++/Java)
+The first (and slower) approach is DP. Each entry in our dp array denotes, if we can reach the end. To do that, one should look at the array from right to left (backwards). The last entry is cleary true, then we go one entry left, and check if any of the right entries (dp[i] of them) entries have one that is true. If that is the case, it means that the current i can also reach the end. We do this for each i, and check if dp[0] is true. However, this is in O(n^2).
+```
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int n = nums.size();
+        int dp[n];
+
+        for(int i=0; i<n; i++){
+            dp[i] = 0;
+        }
+
+        dp[n-1] = 1;
+
+        for(int i=n-2; i>=0; i--){
+            int min_id = min(n-1, nums[i]+i);
+            for(int j=i; j<=min_id; j++){
+                if(dp[j] == 1){
+                    dp[i] = 1;
+                    break;
+                }
+            }
+            
+
+        }
+        
+        return dp[0] == 1;
+    }
+};
+```
+
+The second approach looks at the problem from another perspective. One notices that an array without 0's e.g. [1,4,5,2,4] will always be true, since we can always move forward. Tricky cases are when there is a 0, e.g. [1,4,0,5]. Let's look at the entry j, where dp[j] = 0.
+In that case, one could imagine this as an "obstacle" where the person has to "jump" over it, to reach the end (unless j is the last element of course). If we are not able to jump over j and we always land on j from previous entries, we cannot move further and get stuck.
+Now, how do we find out if we can jump over j? The easiest is to keep track of the "maximum_jump" entry as we iterate through entries that are not 0. When we land on 0, we check if the maximum_jump is larger than j, and we know that we can jump over it.
+If at the end the maximum_jump is larger or equals n-1, we know we can reach the end.
+
+```
+class Solution {
+    public boolean canJump(int[] nums) {
+        int max_jump = 0;
+        int n = nums.length;
+
+        for(int i=0; i<n; i++){
+            if(nums[i] == 0 && i < n-1 && max_jump <= i){
+                return false;
+            }else if(max_jump < (i+nums[i])){
+                max_jump = i+nums[i];
+            }
+        }
+        
+        return max_jump >= n-1;
+    }
+}
+```
