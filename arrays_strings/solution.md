@@ -421,3 +421,63 @@ class Solution {
     }
 }
 ```
+
+## Jump Game 2
+You are given a 0-indexed array of integers nums of length n. You are initially positioned at nums[0].
+
+Each element nums[i] represents the maximum length of a forward jump from index i. In other words, if you are at nums[i], you can jump to any nums[i + j] where:
+
+0 <= j <= nums[i] and
+i + j < n
+Return the minimum number of jumps to reach nums[n - 1]. The test cases are generated such that you can reach nums[n - 1].
+It's guaranteed that you can reach nums[n - 1].
+
+### Example
+Input: nums = [2,3,1,1,4]
+Output: 2
+Explanation: The minimum number of jumps to reach the last index is 2. Jump 1 step from index 0 to 1, then 3 steps to the last index.
+
+### Solution (Java)
+Imagine splitting the array into little subsections where categorize entries together, that can be reached with the same amount of jumps.
+For the given example it would be
+[2],[3,1],[1,4].
+
+In order to do that, we iterate from left to right. First we use 0 jumps and are at i=0. We look at the furthest point we can reach which is i=3. We know that any entries in between them can be reached with 1 jump. We go through each of them and keep track of the furthest point we can reach. All entries until that "furthest" point are in the "2-jump" category. If we reach the end of the "1-jump" category, we move onto the "2-jump" category and so on.
+Trivially if the answer is j, and we are in the "j-1-jump category" if we can land on > j, we can break.
+
+```
+class Solution {
+    public int jump(int[] nums) {
+        // left to right, keep track of farthest point, increment jumps
+        // if farthers point from previous jump reached
+
+        // one could imagine this as a tree, where each level denotes the
+        // min. number of jumps required to these nodes OR
+        // imagine by splitting the array into little subsections where categorize
+        // entries together, that can be reached with the same amount of jumps
+
+        // e.g. 1 -> 2,3 -> 4,5,6 (3 requires 1 jump, 6 requires 2)
+        // [1],[2,3],[4,5]
+        int n = nums.length;
+        int jumps = 0;
+        int farthest = 0; // farthest point that can reached in the current "jump" level
+        int end = 0; // denotest the end of the level in the tree, before going to next level
+
+        for(int i=0; i<n-1; ++i){
+            farthest = Math.max(farthest, nums[i]+i);
+
+            if(farthest >= n-1){
+                jumps++;
+                return jumps;
+            }
+
+            if(i==end){ // if we iterated through all entries that could be reached from last jump
+                end=farthest; 
+                jumps++;
+            }
+        }
+
+        return jumps;
+    }
+}
+```
