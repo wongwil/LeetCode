@@ -11,13 +11,13 @@ where the first m elements denote the elements that should be merged, and the la
 elements are set to 0 and should be ignored. `nums2` has a length of n.
 
 ### Example
-Input: `nums1` = [1,2,3,0,0,0], `m` = 3, `nums2` = [2,5,6], `n` = 3
-Output: [1,2,2,3,5,6]
-Explanation: The arrays we are merging are [1,2,3] and [2,5,6].
+- Input: `nums1` = [1,2,3,0,0,0], `m` = 3, `nums2` = [2,5,6], `n` = 3
+- Output: [1,2,2,3,5,6]
+- Explanation: The arrays we are merging are [1,2,3] and [2,5,6].
 The result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.
 
 ### Solution (C++)
-Have three pointers, `p1`, `p2`, `p_merged`. All of them should start at the end of the arrays, 
+The easiest and quickest solution in `O(n)` is to ave three pointers, `p1`, `p2`, `p_merged`. All of them should start at the end of the arrays, 
 and we set the last element in the merged list to the bigger element of the two. 
 
 ```c++
@@ -63,7 +63,7 @@ Consider the number of elements in nums which are not equal to `val` be `k`, to 
  ### Example
 - Input: `nums` = [3,2,2,3], `val` = 3
 - Output: 2, `nums` = [2,2,_,_] (❗ EDIT: should return 1)
-Explanation: Your function should return `k` = 2, with the first two elements of nums being 2.
+- Explanation: Your function should return `k` = 2, with the first two elements of nums being 2.
 It does not matter what you leave beyond the returned `k` (hence they are underscores).
 
 ### Solution (C++)
@@ -90,25 +90,24 @@ public:
 
 ## Remove Duplicates from Sorted Array
 
-Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in nums.
+Given an integer array `nums` sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in `nums`.
 
-Consider the number of unique elements of nums to be k, to get accepted, you need to do the following things:
+Consider the number of unique elements of `nums` to be `k`, to get accepted, you need to do the following things:
 
-Change the array nums such that the first k elements of nums contain the unique elements in the order they were present in nums initially. The remaining elements of nums are not important as well as the size of nums.
-Return k.
+Change the array `nums` such that the first `k` elements of `nums` contain the unique elements in the order they were present in `nums` initially. The remaining elements of `nums` are not important as well as the size of `nums`.
+Return `k`.
 
 ### Example
-Input: nums = [0,0,1,1,1,2,2,3,3,4]
-Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
-Explanation: Your function should return k = 5, with the first five elements of nums being 0, 1, 2, 3, and 4 respectively.
-It does not matter what you leave beyond the returned k (hence they are underscores).
+- Input: `nums` = [0,0,1,1,1,2,2,3,3,4]
+- Output: 5, `nums` = [0,1,2,3,4,_,_,_,_,_]
+- Explanation: Your function should return `k` = 5, with the first five elements of nums being 0, 1, 2, 3, and 4 respectively.
+It does not matter what you leave beyond the returned `k` (hence they are underscores).
 
 ### Solution (C++)
-The idea is to have to indeces. One index "a" which iterates through the whole list, "looking for the next unique element" and
-one in-place index b, which defines the last unique element.
+The idea is to have to indeces. One index `a` which iterates through the whole list, "looking for the next unique element" and one in-place index `b`, which defines the last unique element.
 As the list is sorted, we can check for the next unequal element than the element in index b.
 
-```
+```c++
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
@@ -131,7 +130,7 @@ public:
 or 
 
 Simplified code, where we loop through each element, and only increment b, if we found a new unique element.
-```
+```c++
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
@@ -151,24 +150,24 @@ public:
 
 ## Remove Duplicates from Sorted Array II
 
-Given an integer array nums sorted in non-decreasing order, remove some duplicates in-place such that each unique element appears at **most twice**. The relative order of the elements should be kept the same.
+Given an integer array `nums` sorted in non-decreasing order, remove some duplicates in-place such that each unique element appears at **most twice**. The relative order of the elements should be kept the same.
 
-Since it is impossible to change the length of the array in some languages, you must instead have the result be placed in the first part of the array nums. More formally, if there are k elements after removing the duplicates, then the first k elements of nums should hold the final result. It does not matter what you leave beyond the first k elements.
+Since it is impossible to change the length of the array in some languages, you must instead have the result be placed in the first part of the array `nums`. More formally, if there are `k` elements after removing the duplicates, then the first `k` elements of `nums` should hold the final result. It does not matter what you leave beyond the first `k` elements.
 
-Return k after placing the final result in the first k slots of nums.
+Return `k` after placing the final result in the first k slots of nums.
 
 Do not allocate extra space for another array. You must do this by modifying the input array in-place with O(1) extra memory.
 
 ### Example
-Input: nums = [1,1,1,2,2,3]
-Output: 5, nums = [1,1,2,2,3,_]
-Explanation: Your function should return k = 5, with the first five elements of nums being 1, 1, 2, 2 and 3 respectively.
+- Input: `nums` = [1,1,1,2,2,3]
+- Output: 5, `nums` = [1,1,2,2,3,_]
+- Explanation: Your function should return k = 5, with the first five elements of nums being 1, 1, 2, 2 and 3 respectively.
 It does not matter what you leave beyond the returned k (hence they are underscores).
 
 ### Solution (C++)
 The idea is similar to before. We go through each element, and decide if we want to insert it. If it's the first two elements, they can be inserted anyways or if the second last unique element is not equals.
 
-```
+```c++
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
@@ -188,19 +187,19 @@ public:
 ```
 
 ## Majority Element
-Given an array nums of size n, return the majority element.
-The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+Given an array `nums` of size `n`, return the majority element.
+The majority element is the element that appears more than $$⌊n / 2⌋$$ times. You may assume that the majority element always exists in the array.
 
 Could you solve the problem in linear time and in O(1) space?
 
 ### Example
-Input: nums = [3,2,3]
-Output: 3
+- Input: nums = [3,2,3]
+- Output: 3
 
 ### Solution (C++)
 Go through array, increment majority element, decrement if it's different. Set new majority, if count is 0.
 
-```
+```c++
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
