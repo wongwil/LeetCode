@@ -188,7 +188,7 @@ public:
 
 ## Majority Element
 Given an array `nums` of size `n`, return the majority element.
-The majority element is the element that appears more than $$⌊n / 2⌋$$ times. You may assume that the majority element always exists in the array.
+The majority element is the element that appears more than $⌊n / 2⌋$ times. You may assume that the majority element always exists in the array.
 
 Could you solve the problem in linear time and in O(1) space?
 
@@ -223,22 +223,22 @@ public:
 ```
 
 ## Rotate Array
-Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.
+Given an integer array `nums`, rotate the array to the right by `k` steps, where `k` is non-negative.
 
 Could you do it in-place with O(1) extra space?
 
 ### Example
-Input: nums = [1,2,3,4,5,6,7], k = 3
-Output: [5,6,7,1,2,3,4]
+- Input: `nums` = [1,2,3,4,5,6,7], `k` = 3
+- Output: [5,6,7,1,2,3,4]
 
 ### Solution (C++)
-The idea is two do the "reverse" approach: You reverse nums once. Then you reverse the subarrays in length k and n-k separately.
+The idea is two do the "reverse" approach: You reverse nums once. Then you reverse the subarrays in length `k` and `n-k` separately.
 You can either use built-in reverse functions (for C++: reverse()) or code it your own. For practice, I coded my own reverse function.
-To do that, do a swap function, where first element gets swapped with last, second with second last etc., so switch i with n-i.
+To do that, do a swap function, where first element gets swapped with last, second with second last etc., so switch `i` with `n-i`.
 
-Note that k can be larger than n in some test cases. You need to handle it by k = k % n since it's has cyclic equivalence.
+Note that `k` can be larger than `n` in some test cases. You need to handle it by $k = k % n$ since it's has cyclic equivalence.
 
-```
+```c++
 class Solution {
 public:
     void rotate(vector<int>& nums, int k) {
@@ -264,26 +264,26 @@ public:
 
 
 ## Best Time to Buy and Sell Stock
-You are given an array prices where prices[i] is the price of a given stock on the i-th day.
+You are given an array `prices` where `prices[i]` is the price of a given stock on the i-th day.
 
 You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
 
 Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
 
 ### Example
-Input: prices = [7,1,5,3,6,4]
-Output: 5
-Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+- Input: prices = [7,1,5,3,6,4]
+- Output: 5
+- Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
 Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
 
 ### Solution (C++)
 Clearly we go from left to right. The way to tackle this problem is to look at two cases: (1) If the next day has a larger price and (2) if the next day has a lower price. If price stays the same, trivial case, don't do anything at all.
-(1) easy case, we update our max_profit (if profit is larger than previous).
-(2) in case of a lower price, it's definitely better to "buy" this stock instead of the older one, as for ANY new price coming, it's always better to have a lower buy price for maximum profit.
+- (1) easy case, we update our max_profit (if profit is larger than previous).
+- (2) in case of a lower price, it's definitely better to "buy" this stock instead of the older one, as for ANY new price coming, it's always better to have a lower buy price for maximum profit.
 
 That's it!
 
-```
+```c++
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
@@ -304,29 +304,28 @@ public:
 ```
 
 ## Best Time to Buy and Sell Stock II
-You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
+You are given an integer array `prices` where `prices[i]` is the price of a given stock on the ith day.
 
 On each day, you may decide to buy and/or sell the stock. You can only hold at most one share of the stock at any time. However, you can buy it then immediately sell it on the same day.
 
 Find and return the maximum profit you can achieve.
 
 ### Example
-Input: prices = [7,1,5,3,6,4]
-Output: 7
-
-Explanation: Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.
+- Input: prices = [7,1,5,3,6,4]
+- Output: 7
+- Explanation: Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.
 Then buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.
 Total profit is 4 + 3 = 7.
 
 ### Solution (C++)
 Similar to before, we consider two cases: When the next day's price is larger (1) and lower (2).
-(1) In case it's larger, we definitely have to sell! One might wonder, why is that the case? Couldn't there be a later better day, where the stock price is higher? That's true, but by the definition of the task, we can always buy and sell the stock at the same day for the same price. For the array: 1 2 3 4, assuming we buy at day 0 (price=1), if we buy and sell the next day, we have the intermediate profit of 1. Proceeding the same way until the end of array, we have a total profit of 3, the same as when "keeping" the stock and wait until the last day to sell.
+- (1) In case it's larger, we definitely have to sell! One might wonder, why is that the case? Couldn't there be a later better day, where the stock price is higher? That's true, but by the definition of the task, we can always buy and sell the stock at the same day for the same price. For the array: 1 2 3 4, assuming we buy at day 0 (price=1), if we buy and sell the next day, we have the intermediate profit of 1. Proceeding the same way until the end of array, we have a total profit of 3, the same as when "keeping" the stock and wait until the last day to sell.
 By doing this, we always ensure having intermediate profits, and in case of 1 2 1, waiting would actually result to no profit, so selling immediately after the stock price rises is better.
-(2) In case it's smaller, we update the buy_price. The reasoning is the same as previous task: For any future prices, a lower buy_price always results to a higher profit.
+- (2) In case it's smaller, we update the buy_price. The reasoning is the same as previous task: For any future prices, a lower buy_price always results to a higher profit.
 
 If you are more into math, one could imagine this approach as summing up the positive gradient in a non-linear graph from left to right.
 
-```
+```c++
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
@@ -350,24 +349,24 @@ public:
 ```
 
 ## Jump Game
-You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.
+You are given an integer array `nums`. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.
 
-Return true if you can reach the last index, or false otherwise.
+Return `true` if you can reach the last index, or `false` otherwise.
 
 ### Example
 Ex. 1:
-Input: nums = [2,3,1,1,4]
-Output: true
-Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
+- Input: nums = [2,3,1,1,4]
+- Output: true
+- Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
 
 Ex.2:
-Input: nums = [3,2,1,0,4]
-Output: false
-Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index.
+- Input: nums = [3,2,1,0,4]
+- Output: false
+- Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index.
 
 ### Solution (C++/Java)
-The first (and slower) approach is DP. Each entry in our dp array denotes, if we can reach the end. To do that, one should look at the array from right to left (backwards). The last entry is cleary true, then we go one entry left, and check if any of the right entries (dp[i] of them) entries have one that is true. If that is the case, it means that the current i can also reach the end. We do this for each i, and check if dp[0] is true. However, this is in O(n^2).
-```
+The first (and slower) approach is DP. Each entry in our dp-array denotes if we can reach the end. To do that, one should look at the array from right to left (backwards). The last entry is cleary true, then we go one entry left, and check if any of the right entries (`dp[i]` of them) entries have one that is true. If that is the case, it means that the current i can also reach the end. We do this for each i, and check if `dp[0]` is true. However, this is in `O(n^2)`.
+```c++
 class Solution {
 public:
     bool canJump(vector<int>& nums) {
@@ -397,12 +396,12 @@ public:
 };
 ```
 
-The second approach looks at the problem from another perspective. One notices that an array without 0's e.g. [1,4,5,2,4] will always be true, since we can always move forward. Tricky cases are when there is a 0, e.g. [1,4,0,5]. Let's look at the entry j, where dp[j] = 0.
-In that case, one could imagine this as an "obstacle" where the person has to "jump" over it, to reach the end (unless j is the last element of course). If we are not able to jump over j and we always land on j from previous entries, we cannot move further and get stuck.
-Now, how do we find out if we can jump over j? The easiest is to keep track of the "maximum_jump" entry as we iterate through entries that are not 0. When we land on 0, we check if the maximum_jump is larger than j, and we know that we can jump over it.
-If at the end the maximum_jump is larger or equals n-1, we know we can reach the end.
+The second approach looks at the problem from another perspective. One notices that an array without 0's e.g., `[1,4,5,2,4]` will always be true, since we can always move forward. Tricky cases are when there is a 0, e.g. `[1,4,0,5]`. Let's look at the entry `j`, where `dp[j] = 0`.
+In that case, one could imagine this as an "obstacle" where the person has to "jump" over it to reach the end (unless `j` is the last element trivially). If we are not able to jump over `j` and we always land on `j` from previous entries, we cannot move further and get stuck.
+Now, how do we find out if we can jump over `j`? The easiest way is to keep track of the "maximum_jump" entry as we iterate through entries that are not 0. When we land on 0, we check if the maximum_jump is larger than `j`, and we know that we can jump over it.
+If at the end the maximum_jump is larger or equals `n-1`, we know we can reach the end.
 
-```
+```java
 class Solution {
     public boolean canJump(int[] nums) {
         int max_jump = 0;
@@ -422,29 +421,26 @@ class Solution {
 ```
 
 ## Jump Game 2
-You are given a 0-indexed array of integers nums of length n. You are initially positioned at nums[0].
+You are given a 0-indexed array of integers `nums` of length `n`. You are initially positioned at `nums[0]`.
 
-Each element nums[i] represents the maximum length of a forward jump from index i. In other words, if you are at nums[i], you can jump to any nums[i + j] where:
-
-0 <= j <= nums[i] and
-i + j < n
-Return the minimum number of jumps to reach nums[n - 1]. The test cases are generated such that you can reach nums[n - 1].
-It's guaranteed that you can reach nums[n - 1].
+Each element `nums[i]` represents the maximum length of a forward jump from index `i`. In other words, if you are at `nums[i]`, you can jump to any `nums[i + j]` where:
+`0 <= j <= nums[i]` and `i + j < n`
+Return the minimum number of jumps to reach `nums[n - 1]`. The test cases are generated such that you can reach `nums[n - 1]`.
+It's guaranteed that you can reach `nums[n - 1]`.
 
 ### Example
-Input: nums = [2,3,1,1,4]
-Output: 2
-Explanation: The minimum number of jumps to reach the last index is 2. Jump 1 step from index 0 to 1, then 3 steps to the last index.
+- Input: `nums` = [2,3,1,1,4]
+- Output: 2
+- Explanation: The minimum number of jumps to reach the last index is 2. Jump 1 step from index 0 to 1, then 3 steps to the last index.
 
 ### Solution (Java)
-Imagine splitting the array into little subsections where categorize entries together, that can be reached with the same amount of jumps.
-For the given example it would be
-[2],[3,1],[1,4].
+Imagine splitting the array into little subarrays where we categorize entries together, that can be reached with the same amount of jumps.
+For the given example it would be `[2],[3,1],[1,4]`.
 
-In order to do that, we iterate from left to right. First we use 0 jumps and are at i=0. We look at the furthest point we can reach which is i=3. We know that any entries in between them can be reached with 1 jump. We go through each of them and keep track of the furthest point we can reach. All entries until that "furthest" point are in the "2-jump" category. If we reach the end of the "1-jump" category, we move onto the "2-jump" category and so on.
-Trivially if the answer is j, and we are in the "j-1-jump category" if we can land on > j, we can break.
+In order to do so, we iterate from left to right. First we use 0 jumps and are at `i=0`. We look at the furthest point we can reach which is `i=3`. We know that any entries in between them can be reached with 1 jump. We go through each of them and keep track of the furthest point we can reach. All entries until that "furthest" point are in the "2-jump" category. If we reach the end of the "1-jump" category, we move onto the "2-jump" category and so on.
+Trivially, if the answer is `j`, and we are in the "j-1-jump category" if we can land on `> j`, we can break.
 
-```
+```java
 class Solution {
     public int jump(int[] nums) {
         // left to right, keep track of farthest point, increment jumps
@@ -482,20 +478,21 @@ class Solution {
 ```
 
 ## H-index
-Given an array of integers citations where citations[i] is the number of citations a researcher received for their ith paper, return the researcher's h-index.
+Given an array of integers `citations` where `citations[i]` is the number of citations a researcher received for their ith paper, return the researcher's h-index.
 
 According to the definition of h-index on Wikipedia: The h-index is defined as the maximum value of h such that the given researcher has published at least h papers that have each been cited at least h times.
 
 ### Example
-Input: citations = [3,0,6,1,5]
-Output: 3
-Explanation: [3,0,6,1,5] means the researcher has 5 papers in total and each of them had received 3, 0, 6, 1, 5 citations respectively.
+- Input: citations = [3,0,6,1,5]
+- Output: 3
+- Explanation: [3,0,6,1,5] means the researcher has 5 papers in total and each of them had received 3, 0, 6, 1, 5 citations respectively.
 Since the researcher has 3 papers with at least 3 citations each and the remaining two with no more than 3 citations each, their h-index is 3.
 
 ### Solution 
-Think of this problem like using a frequency diagram. For each possible h-value (0 - n), we keep track of papers that have exact h-citations which is in O(n).
-We iterate the frequency array from right to left, while cumulating the frequencies and break if cumulative >= i, trivially return i.
-```
+Think of this problem like using a frequency diagram. For each possible h-value (0 - n), we keep track of papers that have exact h-citations which is in `O(n)`.
+We iterate the frequency array from right to left, while cumulating the frequencies and break if `cumulative >= i`, trivially return i.
+
+```java
 class Solution {
     public int hIndex(int[] citations) {
         int n = citations.length;
@@ -525,28 +522,27 @@ class Solution {
 ## Insert Delete GetRandom O(1)
 
 Implement the RandomizedSet class:
-
-- RandomizedSet() Initializes the RandomizedSet object.
-- bool insert(int val) Inserts an item val into the set if not present. Returns true if the item was not present, false otherwise.
+- `RandomizedSet()`: Initializes the RandomizedSet object.
+- `bool insert(int val)`: Inserts an item val into the set if not present. Returns true if the item was not present, false otherwise.
 bool remove(int val) Removes an item val from the set if present. Returns true if the item was present, false otherwise.
-- int getRandom() Returns a random element from the current set of elements (it's guaranteed that at least one element exists when this method is called). Each element must have the same probability of being returned.
+- `int getRandom()`: Returns a random element from the current set of elements (it's guaranteed that at least one element exists when this method is called). Each element must have the same probability of being returned.
 
 You must implement the functions of the class such that each function works in average O(1) time complexity.
 
 No examples, as task description is pretty self-explanatory.
 
 ### Solution (Java)
-Clearly, to achieve O(1) for insert and remove, it requires you to use a Hash-like datastructure. However, unlike arrays, they are indexed by their own key (and not like in arrays where i in 0-n). This means, using a random geneator, you cannot get items in O(1). The trick is to use both datastructures: 
+Clearly, to achieve O(1) for insert and remove, it requires you to use a Hash-like datastructure. However, unlike arrays, they are indexed by their own key (and not like in arrays where i in 0-n). This means, using a random generator, you cannot get items in O(1). The trick is to use both datastructures: 
 1. ArrayList which contains all items unordered
 2. HashMap, contains the to be inserted x as the key, and the index in the arraylist (1) as the value.
 
-(1) can easily be used to get random items in O(1)
-(2) can be used to verify if it exists in O(1), also to add and remove items.
+- (1) can easily be used to get random items in O(1)
+- (2) can be used to verify if it exists in O(1), also to add and remove items.
 
-When adding items, the new entry in the hashmap is just (val, arr.size())
+When adding items, the new entry in the hashmap is just `(val, arr.size())`
 When removing items, you get the index from the hashmap. Then we just remove it from the array, also we replace the index of the last element to the one that was deleted, so we don't need to update all values in the hashmap (assuming there are enough items).
 
-```
+```java
 class RandomizedSet {
 
     private Random random;
@@ -598,16 +594,16 @@ class RandomizedSet {
  */
 ```
 ## Product of Array except itself
-Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+Given an integer array `nums`, return an array answer such that `answer[i]` is equal to the product of all the elements of `nums` except `nums[i]`.
 
-The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+The product of any prefix or suffix of `nums` is guaranteed to fit in a 32-bit integer.
 
-You must write an algorithm that runs in O(n) time and without using the division operation.
+You must write an algorithm that runs in O(n) time and **without using the division operation**.
 
 ### Solution (Java)
-Create prefix and suffix array, such that ans[i] = pref [i] * suff[i].
+As we cannot use division, the idea is to create a prefix and suffix array, such that ans[i] = pref [i] * suff[i].
 
-```
+```java
 class Solution {
     public int[] productExceptSelf(int[] nums) {
         int n = nums.length;
@@ -639,7 +635,7 @@ class Solution {
 Further space O(1) optimization: Use only one answer array and an intermediate variable, which calculates
 the suffix and prefix before-hand.
 
-```
+```java
 class Solution {
     public int[] productExceptSelf(int[] nums) {
         int n = nums.length;
